@@ -1,4 +1,4 @@
-const abcAPI = require('abcAPI');
+const abcAPI = require('abcapi');
 
 const { Client } = require('discord.js'),
     client = new Client();
