@@ -1,11 +1,12 @@
-const abcAPI = require('abcapi');
+const abcAPI = require('../src/index');
 
 const { Client } = require('discord.js'),
-    client = new Client();
+       client = new Client();
 
-client.login('Bot TOKEN');
+client.login("Bot TOKEN");
 
 client.on('ready',() =>{
-    abcAPI.login('API Key', client.user.id);
-    abcAPI.post(client.guilds.size, client.users.size, "Number of shards");
+    abcAPI.login(AbcToken, client.user.id); // => require to use this module, log in to abcAPI
+    abcAPI.update(client); // => made update every minutes
+    abcAPI.post(client); // => made simple post to this abcAPI
 });
