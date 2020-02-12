@@ -6,7 +6,7 @@ __abcAPI__
 ---
 
 ##### Example:
-    Discord.js 11 and 12
+  Discord.js 11 and 12
 ```js
 const abcAPI = require('abcapi');
 
