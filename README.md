@@ -27,7 +27,7 @@ Eris Sharder
 ```js
 //On your ready event 
 
-const abcAPI = require('../../modules/abcAPI/src/index');
+const abcAPI = require('abcapi');
         abcAPI.login('token', this.bot.user.id);
         abcAPI.post(this.bot);
 ```
