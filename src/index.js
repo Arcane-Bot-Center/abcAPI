@@ -48,7 +48,7 @@ module.exports = {
     update: (client) => {
         setInterval(function () {
             require('./index.js').post(client);
-        }, 30000)
+        }, 600000)
     }
 };
 
