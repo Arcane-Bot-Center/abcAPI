@@ -6,7 +6,7 @@ __abcAPI__
 ---
 
 ##### Example:
-    
+    Discord.js 11 and 12
 ```js
 const abcAPI = require('abcapi');
 
@@ -20,6 +20,16 @@ client.on('ready',() => {
     abcAPI.update(client); // => updates every 10 minutes
     abcAPI.post(client); // => made simple post to this abcAPI
 });
+```
+
+Eris Sharder
+
+```js
+//On your ready event 
+
+const abcAPI = require('../../modules/abcAPI/src/index');
+        abcAPI.login('token', this.bot.user.id);
+        abcAPI.post(this.bot);
 ```
 
 ___
