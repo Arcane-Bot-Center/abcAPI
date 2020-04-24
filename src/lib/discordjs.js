@@ -1,6 +1,5 @@
 module.exports.run = async (opts)=>{
     const axios = require('axios');
-    const { EventEmitter } = require('events')
     let baseURL = 'https://arcane-center.xyz/api/';
     let guilds;
     let useDjsMaster = false;
@@ -22,11 +21,18 @@ module.exports.run = async (opts)=>{
     };
 
     let content = JSON.stringify(data,null);
-     await axios.post(baseURL + client.user.id + '/stats', content, {
-         headers: {
-             'Content-Type': 'application/json',
-             'Content-Length': content.length,
-             'Authorization': opts.token
-         }
-     })
+    return new Promise(async (resolve, reject) => {
+        await axios.post(baseURL + client.user.id + '/stats', content, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Content-Length': content.length,
+                'Authorization': opts.token
+            }
+        }).then((res) => {
+            resolve(res)
+        }).catch((err) => {
+            reject(err)
+        });
+    })
+
 }

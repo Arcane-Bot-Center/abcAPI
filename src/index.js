@@ -1,11 +1,11 @@
-const { EventEmitter } = require('events'), axios = require('axios');
-
+const { EventEmitter } = require('events');
+const Logger = require('./utils/logger');
 class ABCapi extends EventEmitter {
     constructor(opts = { lib, client, token }) {
         super(opts);
         this.opts = opts;
         this.run = false;
-        this.cooldown = 10000
+        this.cooldown = 10000;
         setTimeout(() => { this._ready(); }, 2000);
 
 
@@ -16,23 +16,38 @@ class ABCapi extends EventEmitter {
             this.run = true;
             setInterval(() => { this.update(); }, this.cooldown);
         }else{
-            console.log('deja prêt')
+            Logger.log('Module already launched')
         }
     }
 
     update(){
-        let lib = this.opts.lib.toString().toLowerCase()
-        console.log()
+        let lib = this.opts.lib.toString().toLowerCase();
         if(lib === 'eris'){
-            console.log('eris');
-            require('./lib/eris')
-            this.emit('post');
+            require('./lib/eris').run(this.opts).then(res => {
+                if(res.status === 200){
+                    this.emit('post')
+                }
+            }).catch((err)=>{
+                if(err.response.status === 429){
+                    this.emit('rateLimited')
+                }else{
+                    this.emit('error')
+                }
+            });
         }else if(lib === 'discord' || lib === 'discordjs' || lib === 'discord.js'){
-            console.log('discord');
-            require('./lib/discordjs').run(this.opts)
-            this.emit('post');
+            require('./lib/discordjs').run(this.opts).then(res => {
+                if(res.status === 200){
+                    this.emit('post')
+                }
+            }).catch((err)=>{
+                if(err.response.status === 429){
+                    this.emit('rateLimited',err.data)
+                }else{
+                    this.emit('error',err)
+                }
+            })
         }else{
-            console.log('pas connu')
+            Logger.CriticalError('Unknown library supported \'discord.js\', and \'eris\'.','0x0000404')
         }
     }
 

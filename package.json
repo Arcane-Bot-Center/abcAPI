@@ -16,9 +16,12 @@
     "abcAPI"
   ],
   "dependencies": {
-    "axios": "^0.19.0"
+    "axios": "^0.19.0",
+    "moment": "^2.24.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chalk": "^4.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
