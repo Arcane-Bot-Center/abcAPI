@@ -21,11 +21,13 @@ class ABCapi extends EventEmitter {
     }
 
     update(){
-        if(this.opts.lib === 'eris'){
+        let lib = this.opts.lib.toString().toLowerCase()
+        console.log()
+        if(lib === 'eris'){
             console.log('eris');
             require('./lib/eris')
             this.emit('post');
-        }else if(this.opts.lib === 'discord' || this.opts.lib === 'discordjs' || this.opts.lib === 'discord.js'){
+        }else if(lib === 'discord' || lib === 'discordjs' || lib === 'discord.js'){
             console.log('discord');
             require('./lib/discordjs').run(this.opts)
             this.emit('post');
