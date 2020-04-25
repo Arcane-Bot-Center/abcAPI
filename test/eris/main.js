@@ -2,9 +2,9 @@ const Eris = require("eris");
 let api = require('../../main');
 var bot = new Eris('bot token');
 
-bot.connect()
+bot.connect();
 bot.on('ready',()=>{
-    console.log("bot pret")
+    console.log("bot ready");
 
     const  arcane = new api({ lib:'eris',
         client:bot, // Your client

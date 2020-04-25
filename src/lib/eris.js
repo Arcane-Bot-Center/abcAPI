@@ -6,4 +6,4 @@ module.exports.run = async (opts)=>{
     };
 
     return require('../utils/post').request(data,opts.token,opts.client.user.id)
-}
+};

@@ -1,5 +1,5 @@
 'use strict';
-
+let api = require('../../main');
 const Base = require('eris-sharder').Base;
 class Class extends Base {
     constructor(bot) {
@@ -12,7 +12,7 @@ class Class extends Base {
     }
 
     ready() {
-        let api = require('../../main');
+        console.log('Bot ready');
         const  arcane = new api({ lib:'eris',
             client:client, // Your client
             token:'abcapi token', //your abc Api token

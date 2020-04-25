@@ -5,6 +5,7 @@ let api = require('../../main');
 client.login('BotToken');
 
 client.on('ready',()=>{
+    console.log('bot ready');
     const  arcane = new api({ lib:'discord.js',
         client:client, // Your client
         token:'abcapi token', //your abc Api token
@@ -27,9 +28,9 @@ client.on('ready',()=>{
     arcane.on('rateLimited',(responce)=>{
         console.log(responce)
         //return You have been ratelimited please contact the support
-    })
+    });
 
     arcane.getInfo(botid).then((data)=>{
         console.log(data)
     })
-})
+});

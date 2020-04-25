@@ -19,8 +19,8 @@ class ABCapi extends EventEmitter {
     }
 
     update(){
-        console.log(this.run)
-        if(!this.run) Logger.error('Module not started')
+        console.log(this.run);
+        if(!this.run) Logger.error('Module not started');
         let lib = this.opts.lib.toString().toLowerCase();
         if(lib === 'eris'){
             require('./lib/eris').run(this.opts).then(res => {
@@ -55,7 +55,7 @@ class ABCapi extends EventEmitter {
                         };
                         this.emit('rateLimited',err.data)
                     }else{
-                        console.log(err.data)
+                        console.log(err.data);
                         this.emit('error',err)
                     }
                 }else{
