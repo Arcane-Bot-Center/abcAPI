@@ -1,6 +1,5 @@
 module.exports.run = async (opts)=>{
-    const axios = require('axios');
-    let baseURL = 'https://arcane-center.xyz/api/';
+
     let guilds;
     let useDjsMaster = false;
     let client = opts.client;
@@ -20,19 +19,6 @@ module.exports.run = async (opts)=>{
         shard_count : client.shard ?  client.shard.count : 0,
     };
 
-    let content = JSON.stringify(data,null);
-    return new Promise(async (resolve, reject) => {
-        await axios.post(baseURL + client.user.id + '/stats', content, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Content-Length': content.length,
-                'Authorization': opts.token
-            }
-        }).then((res) => {
-            resolve(res)
-        }).catch((err) => {
-            reject(err)
-        });
-    })
+   return require('../utils/post').request(data,opts.token,client.user.id)
 
-}
+};
