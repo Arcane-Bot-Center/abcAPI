@@ -1,36 +1,81 @@
 ---
 __abcAPI__
 
-- __The official module for the arcane-botcenter.xyz's API__
+- __The official module for the arcane-center.xyz's API__
 
 ---
+#### Feature
 
-##### Example:
-  Discord.js 11 and 12
+##### getInfo(id)
+Get bot information from arcane-center.xyz api 
+
+Return
+```json5
+{
+  status: '...',
+  content: {
+    verified: '...',
+    certified: '...',
+    owner: '...',
+    co_owner: '...',
+    addedAt: '...',
+    premium: '...',
+    votes: '...',
+    bot: {
+      botid: '...',
+      name: '...'
+    },
+    infos: {....}
+}
+```
+
+##### update()
+
+Post bot stats (guilds number, shards number) to arcane-center.xyz api 
+
 ```js
-const abcAPI = require('abcapi');
+arcane.update()
+```
 
-const { Client } = require('discord.js'),
-    client = new Client();
+Return: emitted event **post**
 
-client.login('Bot TOKEN');
+#### Events
 
-client.on('ready',() => {
-    abcAPI.login("API Token", client.user.id); // => require to use this module, log in to abcAPI
-    abcAPI.update(client); // => updates every 10 minutes
-    abcAPI.post(client); // => made simple post to this abcAPI
+##### Ready
+Emitted when the is ready 
+
+````js
+arcane.on("ready",() =>{
+        console.log('ABC API ready');
+});
+
+````
+
+##### Post
+Emitted when the post is finished and returns the information about your bot (Your guild number, Your shard number) that was posted on the api.
+```js
+arcane.on('post',(data)=>{
+        console.log(data)
+        // return { server_count: Your guild number, shard_count:  Your shard number }
+    });
+```
+
+##### Error
+Emitted when error was appear
+
+```js
+arcane.on('error',(error)=>{
+           console.log(error)
+           //return the error
+       });
+```
+
+##### RateLimited
+Emitted when you have been rate limited
+
+```Js
+arcane.on('rateLimited',(response)=>{
+        console.log(response)
+        //return You have been ratelimited please contact the support
 });
 ```
-
-Eris Sharder
-
-```js
-//On your ready event 
-
-const abcAPI = require('abcapi');
-        abcAPI.login('token', this.bot.user.id);
-        abcAPI.post(this.bot);
-```
-
-___
-
