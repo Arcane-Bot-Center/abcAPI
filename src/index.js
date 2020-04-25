@@ -87,7 +87,6 @@ class ABCapi extends EventEmitter {
     }
 
     getInfo(id) {
-
         return new Promise((resolve, reject) => {
             resolve('This endpoint is not implemented');
             const {get} = require('axios');
