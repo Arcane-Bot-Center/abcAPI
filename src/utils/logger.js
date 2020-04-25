@@ -11,8 +11,8 @@ class Logger {
     static error(content){
         console.error(`${chalk.cyan(time)} ${chalk.red.underline(('[ERROR]'))} ${content}`)
     }
-    static CriticalError(content,error){
-        throw new ArcaneError(content,error)
+    static CriticalError(content,errorCode,error){
+        throw new ArcaneError(content,errorCode,error ? error:'None')
     }
 
 }
