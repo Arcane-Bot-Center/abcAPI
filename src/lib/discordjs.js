@@ -12,10 +12,7 @@ module.exports.run = async (opts)=>{
 
     if(client.shard) guilds = await client.shard.fetchClientValues(useDjsMaster ? 'guilds.cache.size' : 'guilds.size');
 
-    let data = {
-        server_count : client.shard ? guilds.reduce((prev, val) => prev + val, 0) :
-            (useDjsMaster ? (client.guilds.cache.size ? client.guilds.cache.size : 0) :
-                (client.guilds.size ? client.guilds.size : 0)),
+    let data = {server_count : client.shard ? guilds.reduce((prev, val) => prev + val, 0) : (useDjsMaster ? (client.guilds.cache.size ? client.guilds.cache.size : 0) : (client.guilds.size ? client.guilds.size : 0)),
         shard_count : client.shard ?  client.shard.count : 0,
     };
 
