@@ -31,8 +31,8 @@ class Class extends Base {
             console.log(error)
             //return error
         });
-        arcane.on('rateLimited',(data)=>{
-            console.log(data)
+        arcane.on('rateLimited',(response)=>{
+            console.log(response)
             //return You have been ratelimited please contact the support
         })
 

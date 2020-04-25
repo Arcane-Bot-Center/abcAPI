@@ -1,6 +1,6 @@
 const {Client} = require("discord.js");
 const client = new Client();
-let api = require('../../main');
+
 
 client.login('BotToken');
 
@@ -25,8 +25,8 @@ client.on('ready',()=>{
         console.log(error)
         //return error
     });
-    arcane.on('rateLimited',(responce)=>{
-        console.log(responce)
+    arcane.on('rateLimited',(response)=>{
+        console.log(response)
         //return You have been ratelimited please contact the support
     });
 

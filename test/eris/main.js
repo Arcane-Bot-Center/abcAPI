@@ -25,8 +25,8 @@ bot.on('ready',()=>{
         console.log(error)
         //return error
     });
-    arcane.on('rateLimited',(responce)=>{
-        console.log(responce)
+    arcane.on('rateLimited',(response)=>{
+        console.log(response)
         //return You have been ratelimited please contact the support
     })
 
