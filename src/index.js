@@ -42,7 +42,7 @@ class ABCapi extends EventEmitter {
                 }
 
             });
-        }else if(lib === 'discord' || lib === 'discordjs' || lib === 'discord.js'){
+        }else if(lib === 'discord' || lib === 'discordjs' || lib === 'discord.js' || lib === 'djs'){
             require('./lib/discordjs').run(this.opts).then(res => {
                 if(res.status === 200){
                     this.emit('post',res.data)
@@ -92,36 +92,14 @@ class ABCapi extends EventEmitter {
             const {get} = require('axios');
             get(`https://arcane-center.xyz/api/${id}/stats`).then((res) => {
                 let data = {
-                    status: res.data.status,
                     content: {
-                        verified: res.data.verified,
-                        certified: res.data.certified,
                         owner: res.data.owner,
-                        co_owner: res.data.co_owner,
                         addedAt: res.data.timestamp,
-                        premium: res.data.premium,
-                        votes: res.data.voted.size,
-                        bot: {
-                            botid: res.data.bot._id,
-                            name: res.data.bot.username
-                        },
-                        infos: {
+                        botInfos: {
+                            name: res.data.bot.username,
                             tags: res.data.infos.tags,
-                            lib: res.data.infos.lib,
                             prefix: res.data.infos.prefix,
                             smallDesc: res.data.infos.sdesc,
-                            invite: res.data.infos.link,
-                            website: res.data.infos.website,
-                            github: res.data.infos.github,
-                            support: res.data.infos.support,
-                            nsfwWarn: res.data.infos.nsfwWarn,
-                            nsfwBlur: res.data.infos.nsfwBlur,
-                            youtube: res.data.infos.youtube
-                        },
-                        premium_infos: {
-                            paypal: res.data.premium_infos.paypal,
-                            tipeee: res.data.premium_infos.tipeee,
-                            patreon: res.data.premium_infos.patreon,
                         },
                         api: {
                             vote: res.data.api.vote,
