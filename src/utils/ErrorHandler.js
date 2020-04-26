@@ -17,7 +17,7 @@ module.exports.error = (abc, err)=>{
                 err.data={
                     message:'Internal Server Error',
                     errCode:500
-                }
+                };
                 abc.emit('error',err)
             }
 
@@ -26,4 +26,4 @@ module.exports.error = (abc, err)=>{
         abc.logger.CriticalError(`A critical error has occurred`,'0x0000503',err)
     }
 
-}
+};
