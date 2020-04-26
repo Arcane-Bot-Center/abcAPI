@@ -2,13 +2,13 @@ const {Client} = require("discord.js");
 const client = new Client();
 
 
-client.login('BotToken');
-
+client.login('bot token');
+const api = require('../../main');
 client.on('ready',()=>{
     console.log('bot ready');
     const  arcane = new api({ lib:'discord.js',
         client:client, // Your client
-        token:'abcapi token', //your abc Api token
+        token:'abc api token', //your abc Api token
         autoSend: true    // send automaticly stats (arcane.update() not require). Default is true
     });
 

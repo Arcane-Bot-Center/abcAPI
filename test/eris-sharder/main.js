@@ -1,5 +1,5 @@
 'use strict';
-let api = require('../../main');
+const api = require('../../main');
 const Base = require('eris-sharder').Base;
 class Class extends Base {
     constructor(bot) {

@@ -1,5 +1,5 @@
 const Eris = require("eris");
-let api = require('../../main');
+const api = require('../../main');
 var bot = new Eris('bot token');
 
 bot.connect();
