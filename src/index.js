@@ -6,6 +6,7 @@ class ABCapi extends EventEmitter {
         this.opts = opts;
         this.run = false;
         this.cooldown = 10000;
+        this.logger = Logger;
         setTimeout(() => { this._ready(); }, 2000);
     }
     _ready(){
@@ -14,13 +15,13 @@ class ABCapi extends EventEmitter {
             this.emit('ready');
             this.opts.autoSend ? setInterval(() => { this.update(); }, this.cooldown): false;
         }else{
-            Logger.log('Module already launched')
+            this.logger.log('Module already launched')
         }
     }
 
+
     update(){
-        console.log(this.run);
-        if(!this.run) Logger.error('Module not started');
+        if(!this.run) this.logger.error('Module not started');
         let lib = this.opts.lib.toString().toLowerCase();
         if(lib === 'eris'){
             require('./lib/eris').run(this.opts).then(res => {
@@ -28,39 +29,15 @@ class ABCapi extends EventEmitter {
                     this.emit('post',res.data)
                 }
             }).catch((err)=>{
-                if(err.response){
-                    if(err.response.status === 429){
-                        err.data = {
-                            message:'You have been ratelimited please contact the support'
-                        };
-                        this.emit('rateLimited',err.data)
-                    }else{
-                        this.emit('error',err)
-                    }
-                }else{
-                    Logger.CriticalError(`A critical error has occurred`,'0x0000503',err)
-                }
-
-            });
+                require('./utils/ErrorHandler').error(this,err)
+            })
         }else if(lib === 'discord' || lib === 'discordjs' || lib === 'discord.js' || lib === 'djs'){
             require('./lib/discordjs').run(this.opts).then(res => {
                 if(res.status === 200){
                     this.emit('post',res.data)
                 }
             }).catch((err)=>{
-                if(err.response){
-                    if(err.response.status === 429){
-                        err.data = {
-                            message:'You have been ratelimited please contact the support'
-                        };
-                        this.emit('rateLimited',err.data)
-                    }else{
-                        console.log(err.data);
-                        this.emit('error',err)
-                    }
-                }else{
-                    Logger.CriticalError(`A critical error has occurred`,'0x0000503',err)
-                }
+                require('./utils/ErrorHandler').error(this,err)
             })
         }else if(lib === 'eris sharder' || lib === 'erissharder' || lib === 'eris-sharder'){
             require('./lib/eris-sharder').run(this.opts).then(res => {
@@ -68,21 +45,10 @@ class ABCapi extends EventEmitter {
                     this.emit('post',res.data)
                 }
             }).catch((err)=>{
-                if(err.response){
-                    if(err.response.status === 429){
-                        err.data = {
-                            message:'You have been ratelimited please contact the support'
-                        };
-                        this.emit('rateLimited',err.data)
-                    }else{
-                        this.emit('error',err)
-                    }
-                }else{
-                    Logger.CriticalError(`A critical error has occurred`,'0x0000503',err)
-                }
+                require('./utils/ErrorHandler').error(this,err)
             })
         }else{
-            Logger.CriticalError('Unknown library supported \'discord.js\' , \'eris-sharder\', and \'eris\'.','0x0000404',`Library not found, you provided ${this.opts.lib}`)
+            this.logger.CriticalError('Unknown library supported \'discord.js\' , \'eris-sharder\', and \'eris\'.','0x0000404',`Library not found, you provided ${this.opts.lib}`)
         }
     }
 
@@ -110,7 +76,7 @@ class ABCapi extends EventEmitter {
                 };
                 resolve(data)
             }).catch((err) => {
-                reject(err)
+                require('./utils/ErrorHandler').error(this,err)
             })
         })
     }
