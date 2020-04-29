@@ -1,12 +1,15 @@
 const { EventEmitter } = require('events');
 const Logger = require('./utils/logger');
 class ABCapi extends EventEmitter {
-    constructor(opts = { lib, client, token,autoSend:true }) {
+    constructor(opts = { lib, client, token,autoSend:true },wh = {port: 3000,auth:'arcane'}) {
         super(opts);
         this.opts = opts;
+        this.wh = wh
         this.run = false;
         this.cooldown = 10000;
         this.logger = Logger;
+        const DBLWebhook = require('./webhook');
+        this.webhook = new DBLWebhook(this.options.webhookPort, this.options.webhookPath, this.options.webhookAuth, this.options.webhookServer);
         setTimeout(() => { this._ready(); }, 2000);
     }
     _ready(){
