@@ -8,7 +8,7 @@ client.on('ready',()=>{
     console.log('bot ready');
     const  arcane = new api({ lib:'discord.js',
         client:client, // Your client
-        token:'abc api token', //your abc Api token
+        token: 'arcane token', //your abc Api token
         autoSend: true    // send automaticly stats (arcane.update() not require). Default is true
     });
 
@@ -32,5 +32,5 @@ client.on('ready',()=>{
 
     arcane.getInfo(botid).then((data)=>{
         console.log(data)
-    })
+    });
 });
