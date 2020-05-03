@@ -1,7 +1,7 @@
 const { EventEmitter } = require('events');
 const Logger = require('./utils/logger');
 class ABCapi extends EventEmitter {
-    constructor(opts = { lib, client, token,autoSend:true }) {
+    constructor(opts = { lib:false, client:false, token:false,autoSend:true }) {
         super(opts);
         this.opts = opts;
         this.run = false;
@@ -11,6 +11,12 @@ class ABCapi extends EventEmitter {
     }
     _ready(){
         if(!this.run){
+
+            if(!this.opts.token || typeof this.opts.token !== "string") return this.logger.CriticalError('Token is not provided','0x0000404',!this.opts.token ?'Token not found':typeof this.opts.token !== "string" ? 'Token must be string':'Unknown error');
+            if(!this.opts.client || typeof this.opts.client !== "object") return this.logger.CriticalError('Client is not provided','0x0000404',!this.opts.client ?'Client not found':typeof this.opts.client !== "object" ? 'Client must be object':'Unknown error');
+            if(!this.opts.lib || typeof this.opts.lib !== "string") return this.logger.CriticalError('Library is not provided','0x0000404',!this.opts.lib ?'Library not found':typeof this.opts.lib !== "string" ? 'Library must be string':'Unknown error');
+            if(!this.opts.autoSend || typeof this.opts.autoSend !== "boolean") return this.logger.CriticalError('Autosend is not provided','0x0000404',!this.opts.autoSend ?'Autosend not found':typeof this.opts.autoSend !== "boolean" ? 'Autosend must be string':'Unknown error');
+
             this.run = true;
             this.emit('ready');
             this.opts.autoSend ? setInterval(() => { this.update(); }, this.cooldown): false;
